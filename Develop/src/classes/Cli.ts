@@ -267,7 +267,6 @@ class Cli {
   }
 
   // method to find a vehicle to tow
-  // TODO: add a parameter to accept a truck object
   findVehicleToTow(truck: Truck): void {
     inquirer
       .prompt([
@@ -378,28 +377,30 @@ class Cli {
           }
         } else if (answers.action === 'Tow') {
           // find the selected vehicle and tow another vehicle
+          let truck: Truck | undefined;
           for (let i = 0; i < this.vehicles.length; i++) {
-            if (this.vehicles[i].vin === this.selectedVehicleVin) {
-              if (this.vehicles[i] instanceof Truck) {
-                this.findVehicleToTow(this.vehicles[i] as Truck);
-                return;
-              } else {
-                console.log('Only a truck can tow another vehicle');
-                this.performActions();
-              }
+            if (this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Truck) {
+              truck = this.vehicles[i] as Truck;
             }
+          }
+          if (truck) {
+            this.findVehicleToTow(truck);
+            return;
+          } else {
+            console.log('Only a truck can tow another vehicle');
           }
         } else if (answers.action === 'Wheelie') {
           // find the selected vehicle and perform a wheelie
+          let motorbike: Motorbike | undefined;
           for (let i = 0; i < this.vehicles.length; i++) {
-            if (this.vehicles[i].vin === this.selectedVehicleVin) {
-              if (this.vehicles[i] instanceof Motorbike) {
-                (this.vehicles[i] as Motorbike).wheelie();
-              } else {
-                console.log('Only a motorbike can perform a wheelie');
-                this.performActions();
-              }
+            if (this.vehicles[i].vin === this.selectedVehicleVin && this.vehicles[i] instanceof Motorbike) {
+              motorbike = this.vehicles[i] as Motorbike;
             }
+          }
+          if (motorbike) {
+            motorbike.wheelie();
+          } else {
+            console.log('Only a motorbike can perform a wheelie');
           }
         } else if (answers.action === 'Select or create another vehicle') {
           // start the cli to return to the initial prompt if the user wants to select or create another vehicle
