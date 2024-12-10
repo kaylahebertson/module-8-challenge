@@ -25,7 +25,9 @@ npm i
 
 ## Usage
 
-To use this vehicle builder simply run the command "npm start". Here is a demonstration of how it works.
+To use this vehicle builder simply run the command "npm start". Here is a demonstration of how it works:
+
+![animation shows user choosing a vehicle, performing various actions, and creating a new vehicle](./Assets/vehicle_builder.gif)
 
 ## License
 
